@@ -24,6 +24,9 @@ data$MEDICATION_USED_OTHER_DT_TM <- NULL
 
 # factors
 data$PATIENT_ID <- as.factor(data$PATIENT_ID)
+
+# remove unknown genders
+data <- data[ !data$GENDER %in% c("Indetermin", "Unknown"), ]
 data$GENDER <- as.factor(data$GENDER)
 data$HOSPITAL <- as.factor(data$HOSPITAL)
 data$TRIAGE_CATEGORY <- as.factor(data$TRIAGE_CATEGORY)
@@ -71,6 +74,9 @@ data$PREGNANCY_STATUS <- as.logical(data$PREGNANCY_STATUS)
 data <- data %>% mutate(ID = paste(PATIENT_ID, TRIAGE_DT_TM, sep = '_'))
 # check distinct
 n_distinct(data$ID, na.rm = FALSE)
+
+
+# todo create age group variable
 
 # move unique ID to first column and Triage Category to second column
 data <- data %>% select(ID, TRIAGE_CATEGORY, everything()) 
