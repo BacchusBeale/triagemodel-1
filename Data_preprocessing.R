@@ -31,6 +31,7 @@ data$GENDER <- as.factor(data$GENDER)
 data$HOSPITAL <- as.factor(data$HOSPITAL)
 data$TRIAGE_CATEGORY <- as.factor(data$TRIAGE_CATEGORY)
 data$MODEL_OF_CARE <- as.factor(data$MODEL_OF_CARE)
+data$PRESENTING_PROBLEM <- as.factor(data$PRESENTING_PROBLEM)
 data$AVPU_1 <- as.factor(data$AVPU_1)
 data$AVPU_2 <- as.factor(data$AVPU_2)
 
