@@ -4,10 +4,8 @@ library(lubridate)
 library(reshape2)
 
 #### load data ####
-#temp <- tempfile(fileext = ".xlsx")
-#download.file("https://jcudata.s3-ap-southeast-2.amazonaws.com/ED_Patients_Data.xlsx",temp)
-# could not open zip file of xlsx
-temp = "ED_patients_Data.xlsx"
+temp <- tempfile(fileext = ".xlsx")
+download.file("https://jcudata.s3-ap-southeast-2.amazonaws.com/ED_Patients_Data.xlsx",temp)
 data <- as.data.frame(read_excel(temp))
 
 # review missing values
@@ -74,19 +72,8 @@ data <- data %>% mutate(ID = paste(PATIENT_ID, TRIAGE_DT_TM, sep = '_'))
 # check distinct
 n_distinct(data$ID, na.rm = FALSE)
 
+# move unique ID to first column and Triage Category to second column
+data <- data %>% select(ID, TRIAGE_CATEGORY, everything()) 
+
 # write processed data to new file
 data.table::fwrite(data, "processedData.csv", row.names = F, sep = ",")
-
-
-# split SNOMED codes
-#data$SNOMED <- str_split(data$PATIENT_PROBLEM_HISTORY, "\\|")
-
-
-#### pre-processing tasks todo ####
-
-# one hot encoding of SNOMED codes
-
-
-
-
-
