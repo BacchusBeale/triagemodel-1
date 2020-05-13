@@ -76,11 +76,26 @@ data <- data %>% mutate(ID = paste(PATIENT_ID, TRIAGE_DT_TM, sep = '_'))
 # check distinct
 n_distinct(data$ID, na.rm = FALSE)
 
-
-# todo create age group variable
+# todo create age group variable (David is doing this)
 
 # move unique ID to first column and Triage Category to second column
 data <- data %>% select(ID, TRIAGE_CATEGORY, everything()) 
+
+# Lists of variable types to use for indexing
+Numeric_cols <- colnames(data %>% select_if(is.numeric))
+Factor_cols <-colnames(data %>% select_if(is.factor))
+Datetime_cols <- colnames(data %>% select_if(is.POSIXct))
+Logical_cols <- colnames(data %>% select_if(is.logical))
+Second_dt_cols <- Datetime_cols[endsWith(Datetime_cols, '_2_DT_TM')]
+Second_obs_cols <- Numeric_cols[endsWith(Numeric_cols, '_2')]
+
+# example of subsetting the data
+# create a subset of numeric values
+Numeric_data <- data[,Numeric_cols]
+# create a subset of numeric values
+Factor_data <- data[ ,Factor_cols]
+# create a subset of numeric values minus the second observations
+Numeric_data_initial <- Numeric_data[,Second_obs_cols]
 
 # write processed data to new file
 data.table::fwrite(data, "processedData.csv", row.names = F, sep = ",")
