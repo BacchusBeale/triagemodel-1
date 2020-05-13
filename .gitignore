@@ -4,3 +4,7 @@
 .Ruserdata
 .xlsx
 .csv
+ED_Patients_Data.xlsx
+processedData.csv
+processedData.RData
+processedWorkspace.RData
