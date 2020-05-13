@@ -1,9 +1,10 @@
 #SVM analysis by Bacchus Beale
 
-
 # https://www.datacamp.com/community/tutorials/support-vector-machines-r
 csvfile <- "processedData.csv"
-chunksize <- 1000
+chunksize <- 10000
+svmkernel <- "radial"
+
 ERdata <- read.csv(csvfile, header = T, sep = ",",nrows = chunksize)
 
 print("Before cleaning")
@@ -70,9 +71,9 @@ avgheart2 <- mean(ERdata$HEART_RATE_2, na.rm = T)
 ERdata$HEART_RATE_2 <- replace_na(ERdata$HEART_RATE_2,avgheart2)
 
 avgsbp1 = mean(ERdata$SBP_1, na.rm = T)
-replace_na(ERdata$SBP_1,avgsbp1)
+ERdata$SBP_1 <- replace_na(ERdata$SBP_1,avgsbp1)
 avgsbp2 = mean(ERdata$SBP_2, na.rm = T)
-replace_na(ERdata$SBP_2,avgsbp2)
+ERdata$SBP_2 <- replace_na(ERdata$SBP_2,avgsbp2)
 
 avgdbp1 <- mean(ERdata$DBP_1, na.rm = T)
 ERdata$DBP_1 <- replace_na(ERdata$DBP_1,avgdbp1)
@@ -146,8 +147,7 @@ svmdata <- select(ERdata,
                   TEMP_ORAL_1,
                   TEMP_ORAL_2,
                   TEMP_TYMP_1,
-                  TEMP_TYMP_2,
-                  RECENT_SURGERY_WITHIN_30_DAY)
+                  TEMP_TYMP_2)
 
 str(svmdata)
 
@@ -159,23 +159,58 @@ require(caTools)
 set.seed(123)
 sample = sample.split(svmdata,SplitRatio = 0.75)
 traindata = subset(svmdata, sample==TRUE)
-testdata = subset(svmdata, sample=FALSE)
+testdata = subset(svmdata, sample==FALSE) # had = instead of == !!!
 
 
 # SVM
 print("Run SVM")
 library(e1071)
 # scale variables
-svmmodel = svm(traindata$TRIAGE_CATEGORY ~ ., data = traindata, scale = F, 
-               kernel = "radial", cost = 5)
+svmmodel = svm(traindata$TRIAGE_CATEGORY ~ ., data = traindata, 
+               scale = F, type="C-classification", 
+               kernel = svmkernel, cost = 1, probability = TRUE)
+
+print("svm model output")
 print(svmmodel)
+print("svm model summary")
 summary(svmmodel)
+
+#print vectors
+print("support vectors")
+supportvectors <- svmmodel$index
+print(supportvectors)
 
 # test
 print("predict")
-pred <- predict(svmmodel, testdata, decision.values = TRUE)
+svm.pred <- predict(svmmodel, testdata, decision.values = TRUE, probability = TRUE)
+print(svm.pred)
 
 # accuracy
 print("check")
+values <- attr(svm.pred, "decision.values")
+cat("decision-values: ", values, "\n")
+probs <- attr(svm.pred, "probabilities")
+cat("probabilities: ",probs, "\n")
 
+# errors
+print("errors")
 
+correctRate = sum(svm.pred==testdata$TRIAGE_CATEGORY)/length(testdata$TRIAGE_CATEGORY)
+misRate=1-correctRate
+
+cat("correctRate: ", correctRate, "\n")
+cat("misRate: ", misRate, "\n")
+
+#table
+print("table")
+# error must be same size: TO BE FIXED
+truthtable <- table(prediction = svm.pred, truth = testdata$TRIAGE_CATEGORY)
+print(truthtable)
+
+#save model
+# https://www.mydatahack.com/how-to-save-machine-learning-models-in-r/
+save(svmmodel, file = "model_svm.rda")
+
+# load model
+# load(file = "/tmp/model_nnet.rda")
+# model2 <- readRDS("/tmp/model_nnet2.rda")
