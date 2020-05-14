@@ -7,21 +7,44 @@ dataxls = "ED_Patients_Data.xlsx"
 
 source(file = processingSrc)
 
+start_time <- Sys.time()
+
 inputdata <- loadData(fromAWS = FALSE, localPath = dataxls)
+
+end_time <- Sys.time()
+
+print(end_time - start_time)
 
 csvoutfile = "processedData.csv"
 rdatafile = "processedData.RData"
 workspacefile = "processedWorkspace.RData"
 
+start_time <- Sys.time()
+
 processed <- preprocessData(data = inputdata, saveCSV = csvoutfile, saveRData = rdatafile, saveWorkspace = workspacefile)
+
+end_time <- Sys.time()
+
+print(end_time - start_time)
 
 load(file = rdatafile)
 
 svmTrainedModel = "model_svm.rda"
 svmRData = "svmModelImage.Rdata"
+truthtableFile = "svmTruthTable.txt"
+
 source(file = svmSrc)
 # NOTE load data named "data"
-runSVM(inputdata = data, svmkernel = "radial", saveModelAs=svmTrainedModel, saveSVMRData=svmRData)
+
+start_time <- Sys.time()
+# NOTE change variable ID, but not used in SVM model
+
+runSVM(inputdata = data, svmkernel = "radial", tableFile=truthtableFile,
+       saveModelAs=svmTrainedModel, saveSVMRData=svmRData)
+
+end_time <- Sys.time()
+
+print(end_time - start_time)
 
 # load model
 load(file = svmTrainedModel)

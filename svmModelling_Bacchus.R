@@ -2,7 +2,7 @@
 
 # https://www.datacamp.com/community/tutorials/support-vector-machines-r
 
-runSVM <- function(inputdata, svmkernel="radial", saveModelAs=NULL, saveSVMRData=NULL){
+runSVM <- function(inputdata, svmkernel="radial", tableFile=NULL, saveModelAs=NULL, saveSVMRData=NULL){
   # csvfile <- "processedData.csv"
   # chunksize <- 10000
   # svmkernel <- "radial"
@@ -14,6 +14,7 @@ runSVM <- function(inputdata, svmkernel="radial", saveModelAs=NULL, saveSVMRData
   
   # clean and transform  variables
   library(tidyverse)
+  ERdata <- inputdata
   
   avg.age <- mean(ERdata$AGE, na.rm = T)
   ERdata$AGE <- replace_na(ERdata$AGE, avg.age)
@@ -209,7 +210,10 @@ runSVM <- function(inputdata, svmkernel="radial", saveModelAs=NULL, saveSVMRData
   # error must be same size: TO BE FIXED
   truthtable <- table(prediction = svm.pred, truth = testdata$TRIAGE_CATEGORY)
   print(truthtable)
-  write.table(truthtable, file = "svmTruthTable.txt", sep = ",", quote = F)
+  
+  if(!is.null(tableFile)){
+    write.table(truthtable, file = tableFile, sep = ",", quote = F)
+  }
   
   #save model
   # https://www.mydatahack.com/how-to-save-machine-learning-models-in-r/
