@@ -21,7 +21,7 @@ loadData <- function(fromAWS=TRUE, localPath=NULL){
 }
 
 
-preprocessData <- function(data,saveCSV=TRUE,saveRData=True,saveWorkspace=TRUE){
+preprocessData <- function(data,saveCSV=NULL,saveRData=NULL,saveWorkspace=NULL){
   # review missing values
   str(data)
   missing <- as.data.frame(map(data, ~sum(is.na(.))))
@@ -97,16 +97,16 @@ preprocessData <- function(data,saveCSV=TRUE,saveRData=True,saveWorkspace=TRUE){
   data <- data %>% select(ID, TRIAGE_CATEGORY, everything()) 
   
   # write processed data to new file
-  if (saveCSV){
-    data.table::fwrite(data, "processedData.csv", row.names = F, sep = ",")
+  if (!is.null(saveCSV)){
+    data.table::fwrite(data, file = saveCSV, row.names = F, sep = ",")
   }
   
-  if (saveRData){
-    save(data, file = "processedData.RData")
+  if (!is.null(saveRData)){
+    save(data, file = saveRData)
   }
   
-  if (saveWorkspace){
-    save.image(file = "processedWorkspace.RData")
+  if (!is.null(saveWorkspace)){
+    save.image(file = saveWorkspace)
   }
 
   return(TRUE)

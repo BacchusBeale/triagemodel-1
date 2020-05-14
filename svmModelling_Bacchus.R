@@ -2,7 +2,7 @@
 
 # https://www.datacamp.com/community/tutorials/support-vector-machines-r
 
-runSVM <- function(inputdata, svmkernel="radial", saveModelAs="model_svm.rda"){
+runSVM <- function(inputdata, svmkernel="radial", saveModelAs=NULL, saveSVMRData=NULL){
   # csvfile <- "processedData.csv"
   # chunksize <- 10000
   # svmkernel <- "radial"
@@ -203,6 +203,7 @@ runSVM <- function(inputdata, svmkernel="radial", saveModelAs="model_svm.rda"){
   cat("correctRate: ", correctRate, "\n")
   cat("misRate: ", misRate, "\n")
   
+  
   #table
   print("table")
   # error must be same size: TO BE FIXED
@@ -212,11 +213,14 @@ runSVM <- function(inputdata, svmkernel="radial", saveModelAs="model_svm.rda"){
   
   #save model
   # https://www.mydatahack.com/how-to-save-machine-learning-models-in-r/
-  save(svmmodel, file = saveModelAs)
   
-  save.image(file = "svmModelImage.Rdata")
+  if(!is.null(saveModelAs)){
+    save(svmmodel, file = saveModelAs)  
+  }
   
-  # load model
-  # load(file = "/tmp/model_nnet.rda")
-  # model2 <- readRDS("/tmp/model_nnet2.rda")
+  if(!is.null(saveSVMRData)){
+    save.image(file = saveSVMRData)
+  }
+  
+  
 }
