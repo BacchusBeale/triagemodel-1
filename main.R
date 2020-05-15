@@ -1,7 +1,7 @@
 #main program
 
 processingSrc = "Data_preprocessing.R"
-svmSrc = "svmModelling_Bacchus.R"
+
 
 dataxls = "ED_Patients_Data.xlsx"
 
@@ -27,12 +27,17 @@ end_time <- Sys.time()
 
 print(end_time - start_time)
 
+# need to define if stopped session
+
+csvoutfile = "processedData.csv"
+rdatafile = "processedData.RData"
+workspacefile = "processedWorkspace.RData"
 load(file = rdatafile)
 
 svmTrainedModel = "model_svm.rda"
 svmRData = "svmModelImage.Rdata"
 truthtableFile = "svmTruthTable.txt"
-
+svmSrc = "svmModelling_Bacchus.R"
 source(file = svmSrc)
 # NOTE load data named "data"
 
