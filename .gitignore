@@ -8,3 +8,5 @@ ED_Patients_Data.xlsx
 processedData.csv
 processedData.RData
 processedWorkspace.RData
+model_svm.rda
+svmModelImage.Rdata

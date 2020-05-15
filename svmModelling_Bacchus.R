@@ -208,12 +208,12 @@ runSVM <- function(inputdata, svmkernel="radial", tableFile=NULL, saveModelAs=NU
   #table
   print("table")
   # error must be same size: TO BE FIXED
-  truthtable <- table(prediction = svm.pred, truth = testdata$TRIAGE_CATEGORY)
-  print(truthtable)
-  
-  if(!is.null(tableFile)){
-    write.table(truthtable, file = tableFile, sep = ",", quote = F)
-  }
+  # truthtable <- table(prediction = svm.pred, truth = testdata$TRIAGE_CATEGORY)
+  # print(truthtable)
+  # 
+  # if(!is.null(tableFile)){
+  #   write.table(truthtable, file = tableFile, sep = ",", quote = F)
+  # }
   
   #save model
   # https://www.mydatahack.com/how-to-save-machine-learning-models-in-r/

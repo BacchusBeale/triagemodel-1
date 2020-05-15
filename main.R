@@ -41,16 +41,17 @@ svmSrc = "svmModelling_Bacchus.R"
 source(file = svmSrc)
 # NOTE load data named "data"
 
+library(dplyr)
+samplesize = 30000
+sampledata = sample_n(data, samplesize)
+
 start_time <- Sys.time()
 # NOTE change variable ID, but not used in SVM model
 
-runSVM(inputdata = data, svmkernel = "radial", tableFile=truthtableFile,
+runSVM(inputdata = sampledata, svmkernel = "radial", tableFile=truthtableFile,
        saveModelAs=svmTrainedModel, saveSVMRData=svmRData)
 
 end_time <- Sys.time()
 
 print(end_time - start_time)
 
-# load model
-load(file = svmTrainedModel)
-svmModel <- readRDS(svmTrainedModel)
