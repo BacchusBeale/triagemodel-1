@@ -4,13 +4,9 @@ processingSrc = "Data_preprocessing.R"
 dataxls = "ED_Patients_Data.xlsx"
 
 source(file = processingSrc)
-
 start_time <- Sys.time()
-
 inputdata <- loadData(fromAWS = FALSE, localPath = dataxls)
-
 end_time <- Sys.time()
-
 print(end_time - start_time)
 
 csvoutfile = "processedData.csv"
@@ -18,11 +14,8 @@ rdatafile = "processedData.RData"
 workspacefile = "processedWorkspace.RData"
 
 start_time <- Sys.time()
-
 processed <- preprocessData(data = inputdata, saveCSV = csvoutfile, saveRData = rdatafile, saveWorkspace = workspacefile)
-
 end_time <- Sys.time()
-
 print(end_time - start_time)
 
 # need to define if stopped session
@@ -35,12 +28,9 @@ load(file = rdatafile)
 library(dplyr)
 
 source(file = "outliers.R")
-
 numericdata <- select_if(data, is.numeric)
-
 triageRange <- seq(from=1,to=5,by=1)
 triageData <- data$TRIAGE_CATEGORY
-
 for (triageNumber in triageRange) {
 
   filename = paste("outliersTriage", as.character(triageNumber), ".txt", sep = "")
@@ -49,8 +39,6 @@ for (triageNumber in triageRange) {
   res <- outlierByTriageCategory(categoryVariable=triageData, 
                           VariableColumns=numericdata,
                           triageCatNumber = triageNumber,
-                          removeNA = TRUE,
-                          imputeMeans = FALSE,
                           saveResultAs=filename,
                           savePlotPrefix=plotPrefix)
   print(res)
