@@ -37,19 +37,23 @@ library(dplyr)
 source(file = "outliers.R")
 
 numericdata <- select_if(data, is.numeric)
-numvars = names(numericdata)
-triagerange = seq(from=1,to=1,by=1)
+
+triageRange <- seq(from=1,to=5,by=1)
 triageData <- data$TRIAGE_CATEGORY
 
-for (number in triagerange) {
-filename = paste("outlierResults", as.character(number), ".txt", sep = "")
+for (triageNumber in triageRange) {
 
-  outlierByTriageCategory(categoryVariable=triageData, 
+  filename = paste("outliersTriage", as.character(triageNumber), ".txt", sep = "")
+  plotPrefix <- paste("triage",as.character(triageNumber),sep = "")
+
+  res <- outlierByTriageCategory(categoryVariable=triageData, 
                           VariableColumns=numericdata,
-                          triageCatNumber = number,
+                          triageCatNumber = triageNumber,
                           removeNA = TRUE,
                           imputeMeans = FALSE,
-                          saveResultAs=filename)
+                          saveResultAs=filename,
+                          savePlotPrefix=plotPrefix)
+  print(res)
   
 }
 
