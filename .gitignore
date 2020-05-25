@@ -10,3 +10,5 @@ processedData.RData
 processedWorkspace.RData
 model_svm.rda
 svmModelImage.Rdata
+*.dcf
+*.rds
