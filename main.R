@@ -20,9 +20,9 @@ print(end_time - start_time)
 
 # need to define if stopped session
 
-csvoutfile = "processedData.csv"
+#csvoutfile = "processedData.csv"
 rdatafile = "processedData.RData"
-workspacefile = "processedWorkspace.RData"
+#workspacefile = "processedWorkspace.RData"
 load(file = rdatafile)
 
 library(dplyr)

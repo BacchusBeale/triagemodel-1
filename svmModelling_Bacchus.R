@@ -87,19 +87,12 @@ runSVM <- function(inputdata, svmkernel="radial", tableFile=NULL, saveModelAs=NU
                     PATIENT_HEIGHT,
                     PREGNANCY_STATUS,
                     SMOKING_STATUS,
-                    MODEL_OF_CARE,
                     AVPU_1,
                     GCS_1,
                     RR_1,
                     PULSE_1,
                     HEART_RATE_1,
-                    O2SATS_1,
-                    FIO2_1,
-                    DBP_1,
-                    SBP_1,
-                    MAP_1,
-                    TEMP_ORAL_1,
-                    TEMP_TYMP_1)
+                    O2SATS_1)
   
   str(svmdata)
   
