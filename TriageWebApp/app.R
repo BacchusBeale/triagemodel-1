@@ -8,30 +8,43 @@
 #
 
 library(shiny)
+library(keras)
+library(tensorflow)
+library(tfdeploy)
 
-getTriageCategory <- function(age, gender, height, weight,
-                              smoking, pregnancy,
-                              avpu, gcs, rr, pulse,
-                              heartrate, o2sat){
-    result <- paste("age:",age,
-                    "gender:",gender,
-                    "weight:",weight,
-                    "height:",height,
-                    "smoking:",smoking,
-                    "avpu",avpu,
-                    "gcs",gcs,
-                    "rr",rr,
-                    "pulse",pulse,
-                    "heartrate",heartrate,
-                    "o2sat",o2sat,
-                    sep = " ")
+sess <- tensorflow::tf$Session()
+triagemodel <- tfdeploy::load_savemodel(sess, "savedmodel")
+
+getTriagePrediction <- function(age, gender, height, weight,
+                                smoking, pregnancy,
+                                avpu, gcs, rr, pulse,
+                                heartrate, o2sat){
+    
+    # split gender: Male==1, Female==2
+    male = 0
+    female = 1
+    
+    if(gender==1){
+        male = 1
+        female = 0
+    }
+    
+    instanceVars <- list(age, male, female, 
+                         height, weight,
+                         smoking, pregnancy,
+                         avpu, gcs, rr, pulse,
+                         heartrate, o2sat)
+    
+    result <- tfdeploy::predict_savedmodel(instances = instanceVars, triagemodel)
+    
     return(result)
+    
 }
+
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(
     titlePanel("Emergency Department- Triage Assessment"),
-    
     
     fluidRow(
         h2("Patient Details"),
@@ -105,24 +118,24 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output) {
-    output$patientID <- renderText(
-        "00001"
-    )
     
     output$triagePrediction <- renderText(
-        getTriageCategory(age = input$ageInput, 
-                          gender = input$genderInput,
-                          height = input$heightInput,
-                          weight = input$weightInput,
-                          smoking = input$smokingInput,
-                          pregnancy = input$pregnancyInput,
-                          avpu = input$avpuInput, 
-                          gcs = input$gcsInput, 
-                          rr = input$rrInput, 
-                          pulse = input$pulseInput,
-                          heartrate = input$heartInput, 
-                          o2sat = input$o2satInput
-                          )
+        paste("Category: ",
+              getTriagePrediction(age = input$ageInput, 
+                                  gender = input$genderInput,
+                                  height = input$heightInput,
+                                  weight = input$weightInput,
+                                  smoking = input$smokingInput,
+                                  pregnancy = input$pregnancyInput,
+                                  avpu = input$avpuInput, 
+                                  gcs = input$gcsInput, 
+                                  rr = input$rrInput, 
+                                  pulse = input$pulseInput,
+                                  heartrate = input$heartInput, 
+                                  o2sat = input$o2satInput
+                                  )
+            
+            )
         
         )
      
