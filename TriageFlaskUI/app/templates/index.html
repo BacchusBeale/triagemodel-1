@@ -1,0 +1,78 @@
+<html>
+    <head>
+        <title>{{ title }} - Emergency Department</title>
+    </head>
+    <body>
+        <h1>{{ title }} - Emergency Department</h1>
+
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <h2>Patient Details</h2>
+        <p>
+            {{ form.patientID.label }}:
+            {{ form.patientID(size=32) }}
+        </p>
+        <p>
+            {{ form.firstName.label }}:
+            {{ form.firstName(size=32) }}
+        </p>
+        <p>
+            {{ form.lastName.label }}:
+            {{ form.lastName(size=32) }}
+        </p>
+        <p>
+            {{ form.age.label }}:
+            {{ form.age(size=32) }}
+        </p>
+        <p>
+            {{ form.gender.label }}:
+            {{ form.gender() }}
+        </p>
+        <p>
+            {{ form.height.label }}:
+            {{ form.height(size=32) }}
+        </p>
+        <p>
+            {{ form.weight.label }}:
+            {{ form.weight(size=32) }}
+        </p>
+        <p>
+            {{ form.smoking.label }}:
+            {{ form.smoking(size=32) }}
+        </p>
+        <p>
+            {{ form.pregnancy.label }}:
+            {{ form.pregnancy(size=32) }}
+        </p>
+
+        <h2>Vital Signs</h2>
+
+        <p>
+            {{ form.avpu.label }}:
+            {{ form.avpu() }}
+        </p>
+        <p>
+            {{ form.gcs.label }}:
+            {{ form.gcs(size=32) }}
+        </p>
+        <p>
+            {{ form.rr.label }}:
+            {{ form.rr(size=32) }}
+        </p>
+        <p>
+            {{ form.pulse.label }}:
+            {{ form.pulse(size=32) }}
+        </p>
+        <p>
+            {{ form.heartrate.label }}:
+            {{ form.heartrate(size=32) }}
+        </p>
+        <p>
+            {{ form.o2sat.label }}:
+            {{ form.o2sat(size=32) }}
+        </p>
+
+        <p>{{ form.submit() }}</p>
+    </form>
+    </body>
+</html>

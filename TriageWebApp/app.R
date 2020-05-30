@@ -13,7 +13,7 @@ library(tensorflow)
 library(tfdeploy)
 
 sess <- tensorflow::tf$Session()
-triagemodel <- tfdeploy::load_savemodel(sess, "savedmodel")
+triagemodel <- tfdeploy::load_savedmodel(sess, "savedmodel")
 
 getTriagePrediction <- function(age, gender, height, weight,
                                 smoking, pregnancy,
@@ -29,18 +29,17 @@ getTriagePrediction <- function(age, gender, height, weight,
         female = 0
     }
     
-    instanceVars <- list(age, male, female, 
+    instanceVars <- list(c(age, male, female, 
                          height, weight,
                          smoking, pregnancy,
                          avpu, gcs, rr, pulse,
-                         heartrate, o2sat)
+                         heartrate, o2sat))
     
     result <- tfdeploy::predict_savedmodel(instances = instanceVars, triagemodel)
     
     return(result)
     
 }
-
 
 # Define UI for application that draws a histogram
 ui <- fluidPage(

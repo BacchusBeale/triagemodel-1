@@ -4,16 +4,17 @@
 # test load model
 # requires Miniconda for Python
 
-#testingdata <- load(file = "AppTesting.RData")
+#install.packages('tensorflow')
+#install_tensorflow(method = "conda", conda = "C:/Users/bbea4/AppData/Local/r-miniconda/envs/r-reticulate")
+
+use_condaenv(condaenv = "r-reticulate", conda = "C:/Users/bbea4/AppData/Local/r-miniconda/envs/r-reticulate")
+
+testingdata <- load(file = "AppTesting.RData")
 
 library(keras)
 library(tensorflow)
-library(tfdeploy)
 
-sess <- tensorflow::tf$Session()
-triagemodel <- load_savemodel(sess, "savedmodel")
-
-getTriagePrediction <- function(age, gender, height, weight,
+getTriagePrediction <- function(savedmodel, age, gender, height, weight,
                            smoking, pregnancy,
                            avpu, gcs, rr, pulse,
                            heartrate, o2sat){
@@ -26,15 +27,32 @@ getTriagePrediction <- function(age, gender, height, weight,
     male = 1
     female = 0
   }
-  
-  instanceVars <- list(age, male, female, 
+
+  instanceVars <- list(c(age, male, female, 
                        height, weight,
                        smoking, pregnancy,
                        avpu, gcs, rr, pulse,
-                       heartrate, o2sat)
+                       heartrate, o2sat))
   
-  result <- predict_savedmodel(instances = instanceVars, triagemodel)
+  
+  result <- tfdeploy::predict_savedmodel(instances = instanceVars, savedmodel)
   
   return(result)
   
 }
+
+use_miniconda("r-reticulate", required = T)
+sess <- tensorflow::tf$Session()
+triagemodel <- tfdeploy::load_savedmodel(sess, "savedmodel")
+
+res <- getTriagePrediction(savedmodel = "savedmodel",
+                            age = 15,
+                             gender=1, height=173, weight=54,
+                             smoking=1, pregnancy=1,
+                             avpu=1, gcs=2, rr=56, pulse=23,
+                             heartrate=65, o2sat=99
+                             )
+print(res)
+
+      
+
