@@ -1,78 +1,115 @@
 <html>
     <head>
         <title>{{ title }} - Emergency Department</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <h1>{{ title }} - Emergency Department</h1>
 
-    <form action="" method="post" novalidate>
-        {{ form.hidden_tag() }}
-        <h2>Patient Details</h2>
-        <p>
-            {{ form.patientID.label }}:
-            {{ form.patientID(size=32) }}
-        </p>
-        <p>
-            {{ form.firstName.label }}:
-            {{ form.firstName(size=32) }}
-        </p>
-        <p>
-            {{ form.lastName.label }}:
-            {{ form.lastName(size=32) }}
-        </p>
-        <p>
-            {{ form.age.label }}:
-            {{ form.age(size=32) }}
-        </p>
-        <p>
-            {{ form.gender.label }}:
-            {{ form.gender() }}
-        </p>
-        <p>
-            {{ form.height.label }}:
-            {{ form.height(size=32) }}
-        </p>
-        <p>
-            {{ form.weight.label }}:
-            {{ form.weight(size=32) }}
-        </p>
-        <p>
-            {{ form.smoking.label }}:
-            {{ form.smoking(size=32) }}
-        </p>
-        <p>
-            {{ form.pregnancy.label }}:
-            {{ form.pregnancy(size=32) }}
-        </p>
+        <div class="jumbotron text-center">
+            <h1>{{ title }} - Emergency Department</h1>
+        </div>
 
-        <h2>Vital Signs</h2>
+        <div class="container">
+            <div class="row">
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}
+                <div class="col-sm-4">
+                    <h2>Patient Details</h2>
+                    <p>
+                        {{ form.patientID.label }}:
+                        {{ form.patientID(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.firstName.label }}:
+                        {{ form.firstName(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.lastName.label }}:
+                        {{ form.lastName(size=32) }}
+                    </p>
+                
 
-        <p>
-            {{ form.avpu.label }}:
-            {{ form.avpu() }}
-        </p>
-        <p>
-            {{ form.gcs.label }}:
-            {{ form.gcs(size=32) }}
-        </p>
-        <p>
-            {{ form.rr.label }}:
-            {{ form.rr(size=32) }}
-        </p>
-        <p>
-            {{ form.pulse.label }}:
-            {{ form.pulse(size=32) }}
-        </p>
-        <p>
-            {{ form.heartrate.label }}:
-            {{ form.heartrate(size=32) }}
-        </p>
-        <p>
-            {{ form.o2sat.label }}:
-            {{ form.o2sat(size=32) }}
-        </p>
+                    <p>
+                        {{ form.age.label }}:
+                        {{ form.age(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.gender.label }}:
+                        {{ form.gender() }}
+                    </p>
+                    <p>
+                        {{ form.height.label }}:
+                        {{ form.height(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.weight.label }}:
+                        {{ form.weight(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.smoking.label }}:
+                        {{ form.smoking(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.pregnancy.label }}:
+                        {{ form.pregnancy(size=32) }}
+                    </p>
+                </div>
 
-        <p>{{ form.submit() }}</p>
-    </form>
+                <div class="col-sm-4">
+                    <h2>Vital Signs</h2>
+
+                    <p>
+                        {{ form.avpu.label }}:
+                        {{ form.avpu() }}
+                    </p>
+                    <p>
+                        {{ form.gcs.label }}:
+                        {{ form.gcs(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.rr.label }}:
+                        {{ form.rr(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.pulse.label }}:
+                        {{ form.pulse(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.heartrate.label }}:
+                        {{ form.heartrate(size=32) }}
+                    </p>
+                    <p>
+                        {{ form.o2sat.label }}:
+                        {{ form.o2sat(size=32) }}
+                    </p>
+
+                    <p>{{ form.submit() }}</p>
+
+                </div>
+
+                
+
+            </form>
+
+            <div class="col-sm-4">
+
+                <h2>Triage Category</h2>
+                <div id="prediction">
+                    <h3>Prediction:
+                    {% if output %}
+                    
+                    {{ output["Results"] }}
+
+                    {% endif %}
+                    </h3>
+                </div>
+                
+            </div>
+        </div>
+        </div>
     </body>
 </html>
