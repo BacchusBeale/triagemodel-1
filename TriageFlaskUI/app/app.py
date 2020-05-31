@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect
 from forms import TriageInputForm
-import datamodel
+import predictions
 
 app = Flask(__name__)
 app.config["DEBUG"] = True
@@ -35,12 +35,21 @@ def index():
             male=0
             female=1
 
+        # convert smoking True=1, False=0
+        smokingStatus = 0
+        if smoking:
+            smokingStatus = 1
+
+        pregnancyStatus = 0
+        if pregnancy:
+            pregnancyStatus = 1
         
-        out = datamodel.predictTriageCategory(age, male, female, 
-                         height, weight,
-                         smoking, pregnancy,
-                         avpu, gcs, rr, pulse,
-                         heartrate, o2sat)
+        out = predictions.predictTriageCategory(age=age, 
+        male=male, female=female, 
+        height=height, weight=weight,
+        smoking=smokingStatus, pregnancy=pregnancyStatus,
+        avpu=avpu, gcs=gcs, rr=rr, pulse=pulse,
+        heartrate=heartrate, o2sat=o2sat)
 
         results["Results"] = out
 

@@ -5,7 +5,7 @@
 # Find out more about building applications with Shiny here:
 #
 #    http://shiny.rstudio.com/
-#
+# https://support.rstudio.com/hc/en-us/articles/360022909454-Best-Practices-for-Using-Python-with-RStudio-Connect
 
 library(shiny)
 library(keras)
