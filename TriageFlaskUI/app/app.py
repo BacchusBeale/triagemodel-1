@@ -31,7 +31,7 @@ def index():
         # gender: 0==Male, 1==Female
         male = 1
         female = 0
-        if gender==1:
+        if int(gender)==1:
             male=0
             female=1
 
@@ -44,11 +44,13 @@ def index():
         if pregnancy:
             pregnancyStatus = 1
         
+        # convert strings to int or float
+
         out = predictions.predictTriageCategory(age=age, 
         male=male, female=female, 
         height=height, weight=weight,
         smoking=smokingStatus, pregnancy=pregnancyStatus,
-        avpu=avpu, gcs=gcs, rr=rr, pulse=pulse,
+        avpu=int(avpu), gcs=gcs, rr=rr, pulse=pulse,
         heartrate=heartrate, o2sat=o2sat)
 
         results["Results"] = out
