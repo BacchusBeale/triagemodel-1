@@ -108,7 +108,7 @@
 
             </form>
 
-            <div class="col-sm-4 jumbotron">
+            <div class="col-sm-4">
 
                 <div class="panel-group">
 
@@ -121,13 +121,36 @@
                     <div class="panel panel-default">
                         <div class="panel-body">
 
-                            <h3>Prediction:
-                            {% if output %}
-                            
-                            {{ output["Results"] }}
+                            <h3>Predictions</h3>
+                            <div>
+                                
+                                
+                            <table class="table table-striped">
+                                <thead>
+                                    <th>
+                                        Category
+                                    </th>
+                                    <th>
+                                        Probability
+                                    </th>
+                                </thead>
+                                {% if output %}
+                                
+                                {% for i in range(numitems) %}
+                                <tr>
+                                    <td>
+                                        {{ i + 1 }}
+                                    </td>
+                                    <td>
+                                        {{ output[i] }}
+                                    </td>
+                                </tr>
+                                
+                                {% endfor %}
+                                {% endif %}
 
-                            {% endif %}
-                            </h3>
+                            </table>
+                            </div>
 
                         </div>
                     </div>

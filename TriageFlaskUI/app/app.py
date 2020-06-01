@@ -12,7 +12,8 @@ app.config['SECRET_KEY'] = "fj293u2f392uf2u39u93u2fgjoejkefw"
 @app.route('/index', methods=['GET', 'POST'])
 def index():
     form = TriageInputForm()
-    results = {"Results":0}
+    results = None
+    outputsize = 0
 
     if form.is_submitted():
         age = form.age.data
@@ -53,9 +54,10 @@ def index():
         avpu=int(avpu), gcs=gcs, rr=rr, pulse=pulse,
         heartrate=heartrate, o2sat=o2sat)
 
-        results["Results"] = out
+        results = out
+        outputsize = len(results)
 
-    return render_template('index.html', title='Triage Application', form=form, output=results)
+    return render_template('index.html', title='Triage Application', form=form, output=results, numitems=outputsize)
 
 
 app.run(host="127.0.0.1", port=5000)
