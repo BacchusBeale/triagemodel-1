@@ -3,14 +3,17 @@
         <title>{{ title }} - Emergency Department</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
     <body>
 
-        <div class="jumbotron text-center">
-            <h1>{{ title }} - Emergency Department</h1>
+        <div class="page-header text-center"> 
+            <h1 id="mytitle">{{ title }} - Emergency Department</h1>
         </div>
 
         <div class="container">
@@ -19,93 +22,116 @@
                 {{ form.hidden_tag() }}
                 <div class="col-sm-4">
                     <h2>Patient Details</h2>
-                    <p>
-                        {{ form.patientID.label }}:
-                        {{ form.patientID(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.firstName.label }}:
-                        {{ form.firstName(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.lastName.label }}:
-                        {{ form.lastName(size=32) }}
-                    </p>
-                
+                        <div class="form-group">
+                        
+                            {{ form.patientID.label }}:
+                            {{ form.patientID(class_="form-control input-sm") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.firstName.label }}:
+                            {{ form.firstName(class_="form-control input-sm") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.lastName.label }}:
+                            {{ form.lastName(class_="form-control input-sm") }}
+                        
+                        </div>
 
-                    <p>
-                        {{ form.age.label }}:
-                        {{ form.age(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.gender.label }}:
-                        {{ form.gender() }}
-                    </p>
-                    <p>
-                        {{ form.height.label }}:
-                        {{ form.height(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.weight.label }}:
-                        {{ form.weight(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.smoking.label }}:
-                        {{ form.smoking(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.pregnancy.label }}:
-                        {{ form.pregnancy(size=32) }}
-                    </p>
+                        <div class="form-group">
+                        
+                            {{ form.age.label }}:
+                            {{ form.age(class_="form-control input-sm") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.gender.label }}:
+                            {{ form.gender(class_="form-control input-sm") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.height.label }}:
+                            {{ form.height(class_="form-control input-sm") }}
+                        </div>
+                        <div class="form-group">
+                            {{ form.weight.label }}:
+                            {{ form.weight(class_="form-control input-sm") }}
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                            {{ form.smoking.label }}:
+                            {{ form.smoking(class_="checkbox") }}
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                            {{ form.pregnancy.label }}:
+                            {{ form.pregnancy(class_="checkbox") }}
+                            </div>
+                        </div>
                 </div>
 
                 <div class="col-sm-4">
                     <h2>Vital Signs</h2>
 
-                    <p>
-                        {{ form.avpu.label }}:
-                        {{ form.avpu() }}
-                    </p>
-                    <p>
-                        {{ form.gcs.label }}:
-                        {{ form.gcs(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.rr.label }}:
-                        {{ form.rr(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.pulse.label }}:
-                        {{ form.pulse(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.heartrate.label }}:
-                        {{ form.heartrate(size=32) }}
-                    </p>
-                    <p>
-                        {{ form.o2sat.label }}:
-                        {{ form.o2sat(size=32) }}
-                    </p>
+                    <div class="form-group">
 
-                    <p>{{ form.submit() }}</p>
+                        {{ form.avpu.label }}:
+                        {{ form.avpu(class_="form-control input-sm") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.gcs.label }}:
+                        {{ form.gcs(class_="form-control input-sm") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.rr.label }}:
+                        {{ form.rr(class_="form-control input-sm") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.pulse.label }}:
+                        {{ form.pulse(class_="form-control input-sm") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.heartrate.label }}:
+                        {{ form.heartrate(class_="form-control input-sm") }}
+                    </div>
+                    <div class="form-group">
+                        {{ form.o2sat.label }}:
+                        {{ form.o2sat(class_="form-control input-sm") }}
+                    
+                    </div>
+                    
+                    <div class="button-group btn-group-lg">
+
+                        {{ form.submit(class_="btn btn-success") }}
+
+                    </div>
 
                 </div>
 
-                
-
             </form>
 
-            <div class="col-sm-4">
+            <div class="col-sm-4 jumbotron">
 
-                <h2>Triage Category</h2>
-                <div id="prediction">
-                    <h3>Prediction:
-                    {% if output %}
-                    
-                    {{ output["Results"] }}
+                <div class="panel-group">
 
-                    {% endif %}
-                    </h3>
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                        <h2>Triage Category</h2>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <h3>Prediction:
+                            {% if output %}
+                            
+                            {{ output["Results"] }}
+
+                            {% endif %}
+                            </h3>
+
+                        </div>
+                    </div>
+
                 </div>
                 
             </div>

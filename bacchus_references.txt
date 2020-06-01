@@ -1,0 +1,19 @@
+Save and load models
+https://www.tensorflow.org/tutorials/keras/save_and_load
+
+Using the SavedModel format
+https://www.tensorflow.org/guide/saved_model
+
+Best Practices for Using Python with RStudio Connect
+https://support.rstudio.com/hc/en-us/articles/360022909454-Best-Practices-for-Using-Python-with-RStudio-Connect
+
+
+PythonDataScienceHandbook, The Basics of NumPy Arrays
+https://jakevdp.github.io/PythonDataScienceHandbook/02.02-the-basics-of-numpy-arrays.html
+
+Keras – Save and Load Your Deep Learning Models
+by Adrian Rosebrock on December 10, 2018
+https://www.pyimagesearch.com/2018/12/10/keras-save-and-load-your-deep-learning-models/
+
+Bootstrap 3 Tutorial
+https://www.w3schools.com/bootstrap/default.asp
