@@ -6,13 +6,15 @@
 
 #install.packages('tensorflow')
 #install_tensorflow(method = "conda", conda = "C:/Users/bbea4/AppData/Local/r-miniconda/envs/r-reticulate")
-
+library(tensorflow)
+library(keras)
+library(tfdeploy)
+library(reticulate)
 use_condaenv(condaenv = "r-reticulate", conda = "C:/Users/bbea4/AppData/Local/r-miniconda/envs/r-reticulate")
 
 testingdata <- load(file = "AppTesting.RData")
 
-library(keras)
-library(tensorflow)
+
 
 getTriagePrediction <- function(savedmodel, age, gender, height, weight,
                            smoking, pregnancy,
@@ -41,8 +43,8 @@ getTriagePrediction <- function(savedmodel, age, gender, height, weight,
   
 }
 
-use_miniconda("r-reticulate", required = T)
-sess <- tensorflow::tf$Session()
+#use_miniconda("r-reticulate", required = T)
+sess <- NULL
 triagemodel <- tfdeploy::load_savedmodel(sess, "savedmodel")
 
 res <- getTriagePrediction(savedmodel = "savedmodel",

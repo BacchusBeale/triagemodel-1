@@ -17,3 +17,9 @@ https://www.pyimagesearch.com/2018/12/10/keras-save-and-load-your-deep-learning-
 
 Bootstrap 3 Tutorial
 https://www.w3schools.com/bootstrap/default.asp
+
+JavaScript, Jinja & Flask
+A guide to bringing JavaScript’s Power to your Flask app.
+Crawford Collins
+Apr 25, 2019 · 2 min read
+https://medium.com/@crawftv/javascript-jinja-flask-b0ebfdb406b3

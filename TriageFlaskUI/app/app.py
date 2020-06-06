@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for
 from forms import TriageInputForm
+from newestModels import Model1Form, Model2Form
 import predictions
 
 app = Flask(__name__)
@@ -57,7 +58,22 @@ def index():
         results = out
         outputsize = len(results)
 
-    return render_template('index.html', title='Triage Application', form=form, output=results, numitems=outputsize)
+    return render_template('index.html', form=form, output=results, numitems=outputsize)
 
+@app.route('/index2', methods=['GET', 'POST'])
+def page2():
+    form1 = Model1Form()
+    form2 = Model2Form()
+    output1 = None
+    output2 = None
+
+    if form1.is_submitted:
+        pass
+
+    if form2.is_submitted:
+        pass
+
+
+    return render_template('index2.html', form1=form1, form2=form2, out1=output1, out2=output2)
 
 app.run(host="127.0.0.1", port=5000)

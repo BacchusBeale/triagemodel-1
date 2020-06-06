@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+
+{% block content %}
+    
+        <div class="page-header text-center"> 
+            <h1 id="mytitle">Emergency Department- Improved Model</h1>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <form action="" method="post" novalidate>
+                        {{ form1.hidden_tag() }}
+                        
+                            <h2>Step 1, Category 1 or not? </h2>
+                            <h3>Needs immediate attention?</h3>
+                                <div class="form-group">
+                                    {{ form1.presentingText.label }}:
+                                    {{ form1.presentingText(class_="form-control input-sm") }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form1.chronicHistory.label }}:
+                                    {{ form1.chronicHistory(class_="form-control input-sm") }}
+                                </div>
+                                
+                                <div class="button-group btn-group-lg">
+
+                                    {{ form1.submitModel1(class_="btn btn-success") }}
+            
+                                </div>
+                        
+                    </form>
+                </div>
+                
+                <div class="col-sm-4">
+                    <form action="" method="post" novalidate>
+                        {{ form2.hidden_tag() }}
+                        
+                            <h2>Step 2: Category 2 - 4</h2>
+                            <h3>Less critical?</h3>
+                                <div class="form-group">
+                                    {{ form2.age.label }}:
+                                    {{ form2.age(class_="form-control input-sm") }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form2.pregnancy.label }}:
+                                    {{ form2.pregnancy(class_="form-control input-sm") }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form2.smoking.label }}:
+                                    {{ form2.smoking(class_="form-control input-sm") }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form2.avpu.label }}:
+                                    {{ form2.avpu(class_="form-control input-sm") }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form2.cardiovascular.label }}:
+                                    {{ form2.cardiovascular(class_="form-control input-sm") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.toxicology.label }}:
+                                    {{ form2.toxicology(class_="form-control input-sm") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.heartRateCritical.label }}:
+                                    {{ form2.heartRateCritical(class_="form-control input-sm") }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form2.rrlow.label }}:
+                                    {{ form2.rrlow(class_="form-control input-sm") }}
+                                </div>
+                                
+                                <div class="form-group">
+                                    {{ form2.bpcritical.label }}:
+                                    {{ form2.bpcritical(class_="form-control input-sm") }}
+                                </div>
+
+                                <div class="form-group">
+                                    {{ form2.presentingText.label }}:
+                                    {{ form2.presentingText(class_="form-control input-sm") }}
+                                </div>
+                        
+                                <div class="button-group btn-group-lg">
+
+                                    {{ form2.submitModel2(class_="btn btn-success") }}
+            
+                                </div>
+                        
+                    </form>
+                </div>
+            
+
+                <div class="col-sm-4">
+
+                    <div class="panel-group">
+
+                        <div class="panel panel-primary">
+                            <div class="panel-body">
+                            <h2>Triage Category</h2>
+                            </div>
+                        </div>
+
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+
+                                <h3>Step 1- Prediction</h3>
+                                <div>
+                                {% if out1 %}
+                                    {{ out1 }}
+                                {% endif %}
+                                </div>
+
+                                <h3>Step 2- Prediction</h3>
+                                <div>
+                                {% if out2 %}
+                                    {{ out2 }}
+                                {% endif %}
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    
+        
+        {% endblock %}
