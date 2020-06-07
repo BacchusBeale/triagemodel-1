@@ -100,6 +100,7 @@ def page2():
             mhIn = int(form2.mentalHealth.data)
             toxIn = int(form2.toxicology.data)
             endoIn = int(form2.endocrine.data)
+            neuroIn = int(form2.neurological.data)
             hrIn = int(form2.heartRateCritical.data)
             rrIn = int(form2.rrlow.data)
             bpIn = int(form2.bpcritical.data)
@@ -116,6 +117,7 @@ def page2():
                     mentalHealth=mhIn,
                     toxicology=toxIn,
                     endocrine=endoIn,
+                    neurological=neuroIn,
                     heartRateCritical=hrIn,
                     rrlow=rrIn,
                     bpcritical=bpIn,

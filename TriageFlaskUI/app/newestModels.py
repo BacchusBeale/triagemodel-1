@@ -33,12 +33,12 @@ class Model2Form(FlaskForm):
     mentalHealth = SelectField('Mental Health', choices=yesNo)
     toxicology = SelectField('Toxicology', choices=yesNo)
     endocrine = SelectField('Endocrine', choices=yesNo)
-
+    neurological = SelectField('Neurological', choices=yesNo)
     heartRateCritical = SelectField('Heart rate critical?', choices=yesNo)
     rrlow = SelectField("Respiratory rate low?", choices=yesNo)
     bpcritical = SelectField('Blood pressure critical?', choices=yesNo)
 
-    presentingText = SelectField('Presenting information')
+    presentingText = StringField('Presenting information')
 
     submitModel2 = SubmitField('Step 2 Submit')
 
@@ -66,13 +66,12 @@ class Model1:
         if not self.isLoaded:
             return results
         try:
-            numChronic = self.getNumberOfChronicConditions(textInfo=presentintText)
-
-            dataIn=[[numChronic,isChronic]]
-            
             pipe1 = self.loadedModel
-            
-            pipeout1 = pipe1.predict(dataIn)
+            d = {'TEXT':[presentintText], 'CHRONIC_HISTORY':[isChronic]}
+
+            df1 = pd.DataFrame(data=d)
+            print(df1)
+            pipeout1 = pipe1.predict(df1)
             print(pipeout1)
 
             results = pipeout1
@@ -103,23 +102,37 @@ class Model2:
 
     def getPredictions(self, age,
         pregnancy, smoking, avpu, cardiovascular,
-        mentalHealth, toxicology, endocrine,
+        mentalHealth, toxicology, endocrine, neurological,
         heartRateCritical,rrlow,bpcritical,presentingText):
 
         results=None
         if not self.isLoaded:
             return results
         try:
+            pipe2 = self.loadedModel
 
-            numChronic = self.getNumberOfChronicConditions(textInfo=presentingText)
+            d2 = {'AGE':age,'PREGNANCY_STATUS':pregnancy,
+            'AVPU':avpu, 'SMOKING_STATUS':smoking,
+            'Cardiovascular':cardiovascular,
+            'Mental_Health':mentalHealth,
+            'Toxicology':toxicology,
+            'Endocrine':endocrine,
+            'Neurology':neurological,
+            'HR_critical':bpcritical,
+            'RR_LOW':rrlow,
+            'BP_critical':bpcritical,
+            'TEXT':presentingText
+            }
+           
+            print(d2)
+            index2 = range(len(d2))
+            print(index2)
+            df2 = pd.DataFrame(data=d2, index=index2)
 
-            inArray = np.array([[age, pregnancy,smoking, avpu, cardiovascular,
-            mentalHealth, toxicology, endocrine,
-            heartRateCritical,rrlow,bpcritical,numChronic]])
+            pipeout2 = pipe2.predict(df2)
+            print(pipeout2)
 
-            pred = self.loadedModel.predict(inArray)
-            row0 = pred[0,:]
-            results = row0.tolist()
+            results = pipeout2
         except BaseException as e:
             print("Predict model 2 error: {0}".format(e))
         return results
@@ -148,14 +161,14 @@ def testModel2():
 
         pred2 = m2.getPredictions(age=3,
         pregnancy=0, smoking=1, avpu=2, cardiovascular=0,
-        mentalHealth=1, toxicology=1, endocrine=0,
+        mentalHealth=1, toxicology=1, endocrine=0,neurological=1,
         heartRateCritical=0,rrlow=0,bpcritical=0,presentingText="high fever")
 
         print("pred2 = {0}".format(pred2))
 
 def runTests():
-    testModel1()
-    #testModel2()
+    #testModel1()
+    testModel2()
 
 runTests()
 
