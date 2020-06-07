@@ -47,7 +47,7 @@ class Model1:
         self.loadedModel = None
         self.isLoaded = False
 
-    def loadModel(self, modelPath='MODEL_1.pkl'):
+    def loadModel(self, modelPath='MODEL1.pkl'):
         self.isLoaded=False
         try:
             self.loadedModel = joblib.load(modelPath)
@@ -68,11 +68,14 @@ class Model1:
         try:
             numChronic = self.getNumberOfChronicConditions(textInfo=presentintText)
 
-            inArray = np.array([[numChronic, isChronic]])
+            dataIn=[[numChronic,isChronic]]
+            
+            pipe1 = self.loadedModel
+            
+            pipeout1 = pipe1.predict(dataIn)
+            print(pipeout1)
 
-            pred = self.loadedModel.predict(inArray)
-            row0 = pred[0,:]
-            results = row0.tolist()
+            results = pipeout1
 
         except BaseException as e:
             print("Predict model 1 error: {0}".format(e))
@@ -84,7 +87,7 @@ class Model2:
         self.loadedModel = None
         self.isLoaded = False
 
-    def loadModel(self, modelPath='MODEL_2.pkl'):
+    def loadModel(self, modelPath='MODEL2.pkl'):
         self.isLoaded=False
         try:
             self.loadedModel = joblib.load(modelPath)
@@ -150,11 +153,9 @@ def testModel2():
 
         print("pred2 = {0}".format(pred2))
 
-# def runTests():
-#     testModel1()
-#     #testModel2()
+def runTests():
+    testModel1()
+    #testModel2()
 
-# testing = True
-# if testing:
-#     runTests()
+runTests()
 
