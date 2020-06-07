@@ -23,3 +23,15 @@ A guide to bringing JavaScript’s Power to your Flask app.
 Crawford Collins
 Apr 25, 2019 · 2 min read
 https://medium.com/@crawftv/javascript-jinja-flask-b0ebfdb406b3
+
+Template Designer Documentation
+https://jinja.palletsprojects.com/en/2.11.x/templates/
+
+https://wtforms.readthedocs.io/en/latest/fields/
+
+Save and Load Machine Learning Models in Python with scikit-learn
+by Jason Brownlee on June 8, 2016 in Python Machine Learning
+https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/
+
+Load and predict new data sklearn
+https://stackoverflow.com/questions/47416982/load-and-predict-new-data-sklearn

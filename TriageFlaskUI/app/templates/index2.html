@@ -131,6 +131,15 @@
                 </div>
             </div>
         </div>
+
+        <div id="errors-here">
+            {% if numerrs > 0 %}
+            <h1>Errors</h1>
+            {% for e in errorList %}
+            <p>{{ e }}</p>
+            {% endfor %}
+            {% endif %}
+        </div>
     
         
         {% endblock %}

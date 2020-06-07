@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template, request, redirect, url_for
 from forms import TriageInputForm
 from newestModels import Model1Form, Model2Form
+from newestModels import Model1, Model2
 import predictions
 
 app = Flask(__name__)
@@ -67,13 +68,67 @@ def page2():
     output1 = None
     output2 = None
 
+    errors = []
+
     if form1.is_submitted:
-        pass
+        output1 = None
+        try:
+            presentTxt = form1.presentingText.data
+            chronic = form1.chronicHistory.data
+            numChronic = int(chronic)
+
+            model1 = Model1()
+            if model1.loadModel():
+                result1 = model1.getPredictions(presentintText=presentTxt,
+                isChronic=numChronic)
+
+                if result1 is not None:
+                    output1=result1
+
+        except BaseException as e1:
+            errors.append(str(e1))
+        
 
     if form2.is_submitted:
-        pass
+        output2 = None
+        try:
+            ageIn = int(form2.age.data)
+            pregIn = int(form2.pregnancy.data)
+            smokeIn = int(form2.smoking.data)
+            avpuIn = int(form2.avpu.data)
+            cardioIn = int(form2.cardiovascular.data)
+            mhIn = int(form2.mentalHealth.data)
+            toxIn = int(form2.toxicology.data)
+            endoIn = int(form2.endocrine.data)
+            hrIn = int(form2.heartRateCritical.data)
+            rrIn = int(form2.rrlow.data)
+            bpIn = int(form2.bpcritical.data)
+            ptIn = form2.presentingText.data
+
+            model2 = Model2()
+            if model2.loadModel():
+                result2 = model2.getPredictions(
+                    age=ageIn,
+                    pregnancy=pregIn,
+                    smoking=smokeIn,
+                    avpu=avpuIn,
+                    cardiovascular=cardioIn,
+                    mentalHealth=mhIn,
+                    toxicology=toxIn,
+                    endocrine=endoIn,
+                    heartRateCritical=hrIn,
+                    rrlow=rrIn,
+                    bpcritical=bpIn,
+                    presentingText=ptIn
+                )
+
+                if result2 is not None:
+                    output2=result2
+
+        except BaseException as e2:
+            errors.append(str(e2))
 
 
-    return render_template('index2.html', form1=form1, form2=form2, out1=output1, out2=output2)
+    return render_template('index2.html', numerrs=len(errors), errorList=errors, form1=form1, form2=form2, out1=output1, out2=output2)
 
 app.run(host="127.0.0.1", port=5000)
