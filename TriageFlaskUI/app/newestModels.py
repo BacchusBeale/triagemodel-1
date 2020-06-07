@@ -3,13 +3,13 @@ from wtforms import StringField, TextAreaField, RadioField
 from wtforms import  IntegerField, FloatField, BooleanField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 import random
-
-# https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/
-# https://stackoverflow.com/questions/47416982/load-and-predict-new-data-sklearn
 import joblib
 import numpy as np
 import xgboost
 import pandas as pd
+
+# https://machinelearningmastery.com/save-load-machine-learning-models-python-scikit-learn/
+# https://stackoverflow.com/questions/47416982/load-and-predict-new-data-sklearn
 
 class Model1Form(FlaskForm):
     ChronicChoices = [(0,'Not Chronic'), (1,'Chronic')]
@@ -111,17 +111,20 @@ class Model2:
         try:
             pipe2 = self.loadedModel
 
-            d2 = {'AGE':age,'PREGNANCY_STATUS':pregnancy,
-            'AVPU':avpu, 'SMOKING_STATUS':smoking,
-            'Cardiovascular':cardiovascular,
-            'Mental_Health':mentalHealth,
-            'Toxicology':toxicology,
-            'Endocrine':endocrine,
-            'Neurology':neurological,
-            'HR_critical':bpcritical,
-            'RR_LOW':rrlow,
-            'BP_critical':bpcritical,
-            'TEXT':presentingText
+            d2 = {
+                'AGE':age,
+                'PREGNANCY_STATUS':pregnancy,
+                'AVPU_1':avpu, 
+                'SMOKING_STATUS':smoking,
+                'Cardiovascular':cardiovascular,
+                'Mental_Health':mentalHealth,
+                'Toxicology':toxicology,
+                'Endocrine':endocrine,
+                'Neurology':neurological,
+                'HR_critical':bpcritical,
+                'RR_LOW':rrlow,
+                'BP_critical':bpcritical,
+                'TEXT':presentingText
             }
            
             print(d2)

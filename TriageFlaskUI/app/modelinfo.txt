@@ -1,0 +1,31 @@
+MODEL1.pkl is the file with the saved model, I've used the joblib library to save it and it can be loaded with:
+# import joblib
+# model = joblib.load('MODEL_1.pkl')
+MODEL1 uses xgboost with a multiclass classifier to output either CAT1, CAT5 or OTHER
+The notebook containing the code used to train the model is also in the folder.  It uses the INITIAL_TEXT dataset as its training data and expects two input variables:
+TEXT (character) - the training data for this came from a concatenation of the PRESENTING_INFO plus PATIENT_PROBLEM_HISTORY, the user data can be free text
+CHRONIC_HISTORY (numeric) - current training data is derived from PATIENT_PROBLEM_HISTORY: 0 = NA's, 1 = Not NAs... we will update this with Tori's new feature
+
+
+
+MODEL2 expects the following inputs:
+AGE (numeric)
+PREGNANCY_STATUS (0 or 1)
+AVPU (numeric: Alert=1, Verbal=2, Pain=3, Unresponsive=4)
+SMOKING_STATUS (0 or 1)
+Cardiovascular (0 or 1)
+Mental_Health (0 or 1)
+Toxicology (0 or 1)
+Endocrine (0 or 1)
+Neurology (0 or 1)
+HR_critical (0 or 1:  definition of 1, data$HR_critical <- as.numeric(data$HEART_RATE_1 < 50 | data$HEART_RATE_1 > 150)
+RR_LOW (0 or 1: definition of 1, data$RR_LOW <- as.numeric(data$RR_1 < 10)
+BP_critical (0 or 1: definition of 1, data$BP_critical <- as.numeric(data$SBP_1 < 80)
+TEXT (character) which is the same variable as in the previous model... and we reuse the same user input text in MODEL2
+
+the isChronic variable passed to the model should be a number... but the user input is text which needs to be converted to a number via a workflow that goes like this:
+user inputs free text into the first field (Presenting Information)
+The Presenting Information text is passed to the function clean_input_text(tpi, tpai) and the result returned as text which is stored as presentintText
+the second field, Chronic History, is passed as input to Tori's function called check_chronic(hist) which checks how many matches the text has against a list called cond_list and returns a number stored as isChronic
+then both presentintText and isChronic are sent to Model 1 for prediction.
+Can you pls figure out with @Tori sugden how we're going to save the cond_list - which is the lookup table needed by check_chronic(hist)

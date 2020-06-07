@@ -119,16 +119,16 @@
 
                                 <h3>Step 1- Prediction</h3>
                                 <div>
-                                {% if out1 %}
-                                    {{ out1 }}
-                                {% endif %}
+                                {% for y in out1 %}
+                                    {{ y }}
+                                {% endfor %}
                                 </div>
 
                                 <h3>Step 2- Prediction</h3>
                                 <div>
-                                {% if out2 %}
-                                    {{ out2 }}
-                                {% endif %}
+                                {% for x in out2 %}
+                                    {{ x }}
+                                {% endfor %}
                                 </div>
 
                             </div>
