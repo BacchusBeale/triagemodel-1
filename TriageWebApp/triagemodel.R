@@ -1,21 +1,12 @@
 # https://cran.r-project.org/web/packages/tfdeploy/vignettes/saved_models.html
 # https://tensorflow.rstudio.com/deploy/shiny/
 
-# test load model
-# requires Miniconda for Python
-
 #install.packages('tensorflow')
-#install_tensorflow(method = "conda", conda = "C:/Users/bbea4/AppData/Local/r-miniconda/envs/r-reticulate")
 library(tensorflow)
 library(keras)
 library(tfdeploy)
 library(reticulate)
-use_condaenv(condaenv = "r-reticulate", conda = "C:/Users/bbea4/AppData/Local/r-miniconda/envs/r-reticulate")
-
-testingdata <- load(file = "AppTesting.RData")
-
-
-
+use_condaenv(condaenv = "r-reticulate")
 getTriagePrediction <- function(savedmodel, age, gender, height, weight,
                            smoking, pregnancy,
                            avpu, gcs, rr, pulse,
@@ -47,14 +38,11 @@ getTriagePrediction <- function(savedmodel, age, gender, height, weight,
 sess <- NULL
 triagemodel <- tfdeploy::load_savedmodel(sess, "savedmodel")
 
-res <- getTriagePrediction(savedmodel = "savedmodel",
-                            age = 15,
-                             gender=1, height=173, weight=54,
-                             smoking=1, pregnancy=1,
-                             avpu=1, gcs=2, rr=56, pulse=23,
-                             heartrate=65, o2sat=99
-                             )
-print(res)
-
-      
-
+# res <- getTriagePrediction(savedmodel = "savedmodel",
+#                             age = 15,
+#                              gender=1, height=173, weight=54,
+#                              smoking=1, pregnancy=1,
+#                              avpu=1, gcs=2, rr=56, pulse=23,
+#                              heartrate=65, o2sat=99
+#                              )
+# print(res)

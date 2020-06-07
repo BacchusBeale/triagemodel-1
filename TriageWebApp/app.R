@@ -7,18 +7,19 @@
 #    http://shiny.rstudio.com/
 # https://support.rstudio.com/hc/en-us/articles/360022909454-Best-Practices-for-Using-Python-with-RStudio-Connect
 
-library(shiny)
-library(keras)
 library(tensorflow)
+library(keras)
 library(tfdeploy)
-
-sess <- tensorflow::tf$Session()
-triagemodel <- tfdeploy::load_savedmodel(sess, "savedmodel")
+library(reticulate)
+use_condaenv(condaenv = "r-reticulate")
 
 getTriagePrediction <- function(age, gender, height, weight,
                                 smoking, pregnancy,
                                 avpu, gcs, rr, pulse,
                                 heartrate, o2sat){
+    print(tensorflow::tf_version())
+    sess <- NULL # tensorflow::tf$Session()
+    triagemodel <- tfdeploy::load_savedmodel(sess=NULL, "savedmodel")
     
     # split gender: Male==1, Female==2
     male = 0
