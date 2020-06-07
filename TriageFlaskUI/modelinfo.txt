@@ -22,3 +22,10 @@ HR_critical (0 or 1:  definition of 1, data$HR_critical <- as.numeric(data$HEART
 RR_LOW (0 or 1: definition of 1, data$RR_LOW <- as.numeric(data$RR_1 < 10)
 BP_critical (0 or 1: definition of 1, data$BP_critical <- as.numeric(data$SBP_1 < 80)
 TEXT (character) which is the same variable as in the previous model... and we reuse the same user input text in MODEL2
+
+the isChronic variable passed to the model should be a number... but the user input is text which needs to be converted to a number via a workflow that goes like this:
+user inputs free text into the first field (Presenting Information)
+The Presenting Information text is passed to the function clean_input_text(tpi, tpai) and the result returned as text which is stored as presentintText
+the second field, Chronic History, is passed as input to Tori's function called check_chronic(hist) which checks how many matches the text has against a list called cond_list and returns a number stored as isChronic
+then both presentintText and isChronic are sent to Model 1 for prediction.
+Can you pls figure out with @Tori sugden how we're going to save the cond_list - which is the lookup table needed by check_chronic(hist)

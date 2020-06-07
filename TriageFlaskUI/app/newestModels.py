@@ -125,9 +125,9 @@ class Model2:
             }
            
             print(d2)
-            index2 = range(len(d2))
+            index2 = d2.keys()
             print(index2)
-            df2 = pd.DataFrame(data=d2, index=index2)
+            df2 = pd.DataFrame(data=d2, index=index2, columns=index2)
 
             pipeout2 = pipe2.predict(df2)
             print(pipeout2)
@@ -170,5 +170,5 @@ def runTests():
     #testModel1()
     testModel2()
 
-runTests()
+#runTests()
 
